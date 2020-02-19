@@ -8,7 +8,10 @@ class ToDoItem extends React.Component{
       editing: false
     }
 
+    this.input = React.createRef()
+
     this.switchEditing = this.switchEditing.bind(this)
+    this.editToDoItem = this.editToDoItem.bind(this)
     this.deleteToDoItem = this.deleteToDoItem.bind(this)
   }
 
@@ -16,6 +19,12 @@ class ToDoItem extends React.Component{
     this.setState({
       editing: !this.state.editing
     })
+  }
+
+  editToDoItem(e) {
+    e.preventDefault()
+    this.props.onEdit(this.props.index, this.input.current.value)
+    this.setState({editing: false})
   }
 
   deleteToDoItem() {
@@ -30,8 +39,8 @@ class ToDoItem extends React.Component{
         {!this.state.editing ? (
             <h3 className="to-do-item__text">{this.props.value}</h3>
           ) : (
-            <form className="form form--inline">
-              <input className="form__input" type="text" value={this.props.value} />
+            <form className="form form--inline to-do-item__form" onSubmit={this.editToDoItem}>
+              <input className="form__input" type="text" defaultValue={this.props.value} ref={this.input} />
               <input className="form__submit btn" type="submit" value="Save" />
             </form>
           )

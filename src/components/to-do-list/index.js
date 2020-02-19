@@ -3,27 +3,18 @@ import './to-do-list.scss'
 
 import ToDoItem from '../to-do-item'
 
-class ToDoList extends React.Component{
-  constructor(props) {
-    super(props)
-    this.renderItem = this.renderItem.bind(this)
-    this.renderItems = this.renderItems.bind(this)
-  }
-  renderItem(item, index) {
+function ToDoList(props){
+  function renderItem(item, index) {
     return(
-      <ToDoItem key={item.id} value={item.value} index={index} onDelete={this.props.onDeleteItem} />
+      <ToDoItem key={item.id} value={item.value} index={index} onEdit={props.onEditItem} onDelete={props.onDeleteItem} />
     )
   }
-  renderItems() {
-    return this.props.items.map(this.renderItem)
-  }
-  render(){
-    return(
-      <ul className="to-do-list">
-        {this.renderItems()}
-      </ul>
-    )
-  }
+
+  return(
+    <ul className="to-do-list">
+      {props.items.map(renderItem)}
+    </ul>
+  )
 }
 
 export default ToDoList
