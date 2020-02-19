@@ -1,55 +1,44 @@
-import React from 'react'
+import React, { useState, createRef } from 'react'
 import './to-do-item.scss'
 
-class ToDoItem extends React.Component{
-  constructor(props) {
-    super(props)
-    this.state = {
-      editing: false
-    }
+function ToDoItem(props) {
 
-    this.input = React.createRef()
+  const [editing, setEditing] = useState(false)
 
-    this.switchEditing = this.switchEditing.bind(this)
-    this.editToDoItem = this.editToDoItem.bind(this)
-    this.deleteToDoItem = this.deleteToDoItem.bind(this)
+  const input = createRef()
+
+  function switchEditing() {
+    setEditing(!editing)
   }
 
-  switchEditing() {
-    this.setState({
-      editing: !this.state.editing
-    })
-  }
-
-  editToDoItem(e) {
+  function editToDoItem(e) {
     e.preventDefault()
-    this.props.onEdit(this.props.index, this.input.current.value)
-    this.setState({editing: false})
+    if (input.current.value.length === 0) return
+    props.onEdit(props.index, input.current.value)
+    setEditing(false)
   }
 
-  deleteToDoItem() {
-    console.log('called in item')
-    this.props.onDelete(this.props.index)
+  function deleteToDoItem() {
+    props.onDelete(props.index)
   }
 
-  render(){
-    return(
-      <li className="to-do-item">
-        <span className="to-do-item__text-prefix">{this.props.index + 1}.</span>
-        {!this.state.editing ? (
-            <h3 className="to-do-item__text">{this.props.value}</h3>
-          ) : (
-            <form className="form form--inline to-do-item__form" onSubmit={this.editToDoItem}>
-              <input className="form__input" type="text" defaultValue={this.props.value} ref={this.input} />
-              <input className="form__submit btn" type="submit" value="Save" />
-            </form>
-          )
-        }
-        <button className="to-do-item__button to-do-item__button--edit btn" onClick={this.switchEditing}>{!this.state.editing ? 'Edit' : 'Discard'}</button>
-        <button className="to-do-item__button to-do-item__button--delete btn btn--inverted" onClick={this.deleteToDoItem}>Delete</button>
-      </li>
-    )
-  }
+  
+  return(
+    <li className="to-do-item">
+      <span className="to-do-item__text-prefix">{props.index + 1}.</span>
+      {!editing ? (
+          <h3 className="to-do-item__text">{props.value}</h3>
+        ) : (
+          <form className="form form--inline to-do-item__form" onSubmit={editToDoItem}>
+            <input className="form__input" type="text" autoFocus defaultValue={props.value} ref={input} />
+            <input className="form__submit btn" type="submit" value="Save" />
+          </form>
+        )
+      }
+      <button className="to-do-item__button to-do-item__button--edit btn" onClick={switchEditing}>{!editing ? 'Edit' : 'Discard'}</button>
+      <button className="to-do-item__button to-do-item__button--delete btn btn--inverted" onClick={deleteToDoItem}>Delete</button>
+    </li>
+  )
 }
 
 export default ToDoItem

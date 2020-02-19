@@ -1,70 +1,59 @@
-import React, { createRef } from 'react'
+import React, { useState, useRef } from 'react'
 import './home.scss'
 
 import ToDoList from '../../components/to-do-list'
 
-class Home extends React.Component{
-  constructor(props) {
-    super(props)
-    this.state = {
-      items: [
-        {id: this.generateRandomString(), value: 'Groceries'},
-        {id: this.generateRandomString(), value: 'Clean my room'},
-        {id: this.generateRandomString(), value: 'Drinks at 5'},
-      ]
-    }
+function Home(){
+  const [items, setItems] = useState([
+    {id: generateRandomString(), value: 'Groceries'},
+    {id: generateRandomString(), value: 'Clean my room'},
+    {id: generateRandomString(), value: 'Drinks at 5'}
+  ])
 
-    this.input = createRef()
+  const input = useRef()
 
-    this.genItem = this.genItem.bind(this)
-    this.addToDoItem = this.addToDoItem.bind(this)
-    this.editToDoItem = this.editToDoItem.bind(this)
-    this.deleteToDoItem = this.deleteToDoItem.bind(this)
-  }
-
-  generateRandomString() {
+  function generateRandomString() {
     return Math.random().toString(36).substring(7);
   }
 
-  genItem(value) {
+  function genItem(value) {
     return {
-      id: this.generateRandomString(),
+      id: generateRandomString(),
       value
     }
   }
 
-  addToDoItem(e) {
+  function addToDoItem(e) {
     e.preventDefault()
-    const items = this.state.items 
-    items.push(this.genItem(this.input.current.value))
-    this.setState({ items })
-    this.input.current.value = ''
+    if (input.current.value.length === 0) return
+    const copy = [...items]
+    copy.push(genItem(input.current.value))
+    setItems(copy)
+    input.current.value = ''
   }
 
-  editToDoItem(index, value) {
-    const items = this.state.items 
-    items[index] = this.genItem(value) 
-    this.setState({ items })
+  function editToDoItem(index, value) {
+    const copy = [...items]
+    copy[index] = genItem(value) 
+    setItems(copy)
   }
 
-  deleteToDoItem(index) {
-    const items = this.state.items
-    items.splice(index, 1)
-    this.setState({ items })
+  function deleteToDoItem(index) {
+    const copy = [...items]
+    copy.splice(index, 1)
+    setItems(copy)
   }
 
-  render(){
-    return(
-      <div className="home">
-        <h1>To do list</h1>
-        <form onSubmit={this.addToDoItem} className="form form--inline">
-          <input className="form__input" name="input" type="text" ref={this.input} />
-          <input className="form__submit btn" type="submit" value="Add todo" />
-        </form>
-        <ToDoList items={this.state.items} onEditItem={this.editToDoItem} onDeleteItem={this.deleteToDoItem} />
-      </div>
-    )
-  }
+  return(
+    <div className="home">
+      <h1>To do list</h1>
+      <form onSubmit={addToDoItem} className="form form--inline">
+        <input className="form__input" name="input" type="text" ref={input} />
+        <input className="form__submit btn" type="submit" value="Add todo" />
+      </form>
+      <ToDoList items={items} onEditItem={editToDoItem} onDeleteItem={deleteToDoItem} />
+    </div>
+  )
 }
 
 export default Home

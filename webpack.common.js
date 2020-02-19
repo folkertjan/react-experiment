@@ -9,7 +9,9 @@ module.exports = {
   },
   module : {
     rules : [
-      {test : /\.(js)$/, use:'babel-loader'},
+      {test : /\.(js)$/, use: [
+        'babel-loader'
+      ]},
       {test: /\.s[ac]ss$/i, use: [
         'style-loader',
         'css-loader',
@@ -17,7 +19,6 @@ module.exports = {
       ]}
     ]
   },
-  mode:'development',
   plugins : [
     new HtmlWebpackPlugin ({
         template : 'src/index.html'
