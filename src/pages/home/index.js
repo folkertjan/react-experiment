@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+
 import './home.scss'
 
 import ToDoList from '../../components/to-do-list'
@@ -45,14 +46,16 @@ function Home(){
   }
 
   return(
-    <div className="home">
-      <h1>To do list</h1>
-      <form onSubmit={addToDoItem} className="form form--inline">
-        <input className="form__input" name="input" type="text" ref={input} />
-        <input className="form__submit btn" type="submit" value="Add todo" />
-      </form>
-      <ToDoList items={items} onEditItem={editToDoItem} onDeleteItem={deleteToDoItem} />
-    </div>
+    <main className="page page--home">
+      <div className="container">
+        <h2 className="page__title">To do list</h2>
+        <form onSubmit={addToDoItem} className="form form--inline">
+          <input className="form__input" name="input" type="text" ref={input} />
+          <input className="form__submit btn" type="submit" value="Add todo" />
+        </form>
+        <ToDoList items={items} onEditItem={editToDoItem} onDeleteItem={deleteToDoItem} />
+      </div>
+    </main>
   )
 }
 

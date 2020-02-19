@@ -2,14 +2,14 @@ var path = require('path');
 var HtmlWebpackPlugin =  require('html-webpack-plugin');
 
 module.exports = {
-  entry : './src/index.js',
-  output : {
-    path : path.resolve(__dirname , 'dist'),
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
     filename: 'index.bundle.js'
   },
-  module : {
-    rules : [
-      {test : /\.(js)$/, use: [
+  module: {
+    rules: [
+      {test: /\.(js)$/, use: [
         'babel-loader'
       ]},
       {test: /\.s[ac]ss$/i, use: [
@@ -19,9 +19,9 @@ module.exports = {
       ]}
     ]
   },
-  plugins : [
-    new HtmlWebpackPlugin ({
-        template : 'src/index.html'
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/index.html')
     })
   ]
 }

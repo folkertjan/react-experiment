@@ -1,3 +1,5 @@
+@import './config';
+
 * {
   box-sizing: border-box;
 }
@@ -8,17 +10,24 @@ body {
 }
 
 .wrapper, .container {
-  padding: 3rem 1rem;
+  padding: 1rem;
   width: 100%;
-  max-width: 45rem;
+  max-width: $container-width;
   margin-left: auto;
   margin-right: auto;
 }
 
+.page {
+  padding: 2rem 0;
+  &__title {
+    font-size: 2.25rem;
+  }
+}
+
 .btn {
   appearance: none;
-  background: #805AD5;
-  border: 1px solid #805AD5;
+  background: $color-primary;
+  border: 1px solid $color-primary;
   color: white;
   padding: .75rem 1rem;
   font-size: .875rem;
@@ -28,14 +37,14 @@ body {
   text-transform: uppercase;
   transition: all .3s;
   &:hover {
-    background: darken(#805AD5, 10%);
+    background: darken($color-primary, 10%);
   }
   &--inverted {
     background: white;
-    color: #805AD5;
+    color: $color-primary;
     &:hover {
       color: white;
-      background: darken(#805AD5, 10%);
+      background: darken($color-primary, 10%);
     }
   }
 }
@@ -47,6 +56,7 @@ body {
     display: flex;
   }
   &__input {
+    width: 100%;
     border: none;
     border: 1px solid #D6BCFA;
     border-radius: 5px 0 0 5px;
@@ -55,7 +65,7 @@ body {
     margin: 0 -1px 0 0;
     &:focus {
       outline: none;
-      border: 1px solid #805AD5;
+      border: 1px solid $color-primary;
       background: #FAF5FF;
     }
   }

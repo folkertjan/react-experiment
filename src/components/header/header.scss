@@ -1,0 +1,14 @@
+@import '../../config';
+
+.header {
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__title {
+    font-size: 1.25rem;
+    margin: 0;
+    margin-right: 1rem;
+  }
+}
