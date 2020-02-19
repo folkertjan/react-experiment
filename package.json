@@ -1,0 +1,43 @@
+{
+  "name": "react-experiment",
+  "version": "1.0.0",
+  "description": "Learning react basics",
+  "main": "src/index.js",
+  "babel":{
+    "presets" : [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "dev": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/follywolly/react-experiment.git"
+  },
+  "author": "FollyWolly",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/follywolly/react-experiment/issues"
+  },
+  "homepage": "https://github.com/follywolly/react-experiment#readme",
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.2",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  }
+}
