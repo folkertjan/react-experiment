@@ -1,15 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
+import './global.scss'
 
-import ToDoList from './components/to-do-list'
+import Home from './pages/home'
 
 class App extends React.Component{
   render(){
     return(
-      <div className="container">
-        <h1>To-do app</h1>
-        <ToDoList />
+      <div className="wrapper">
+        <Home />
       </div>
     )
   }
