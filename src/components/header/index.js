@@ -1,10 +1,9 @@
 import React from 'react'
-
 import './header.scss'
 
 import Nav from '../nav'
 
-function Header() {
+const Header = () =>{
   return(
     <header className="header">
       <div className="container header__container">

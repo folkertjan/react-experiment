@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-
 import './about.scss'
 
 import { TodoContext } from '../../contexts/to-do-context'
 
-function About(){
+const About = () => {
   const { todos } = useContext(TodoContext)
+
   return(
     <main className="page page--about">
       <div className="container">

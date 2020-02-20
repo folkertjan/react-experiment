@@ -3,7 +3,7 @@ import uuid from 'uuid/v1'
 
 export const TodoContext = createContext()
 
-function TodoContextProvider({ children }) {
+const TodoContextProvider = ({ children }) => {
   const [todos, setTodos] = useState([
     {id: uuid(), value: 'Groceries'},
     {id: uuid(), value: 'Clean my room'},

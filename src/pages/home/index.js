@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react'
-
 import './home.scss'
 
 import { TodoContext } from '../../contexts/to-do-context'
 
 import ToDoList from '../../components/to-do-list'
 
-function Home(){
-  const { todos, addTodo, editTodo, removeTodo } = useContext(TodoContext)
+const Home = () =>{
+  const { todos, addTodo } = useContext(TodoContext)
 
   const [value, setValue] = useState('')
 
@@ -29,7 +28,7 @@ function Home(){
           <input className="form__input" name="input" type="text" value={value} onChange={e => setValue(e.target.value)} />
           <input className="form__submit btn" type="submit" value="Add todo" />
         </form>
-        <ToDoList items={todos} onEditItem={editTodo} onDeleteItem={removeTodo} />
+        <ToDoList items={todos}/>
       </div>
     </main>
   )

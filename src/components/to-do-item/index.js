@@ -1,27 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import './to-do-item.scss'
 
-function ToDoItem({ item, index, onEdit, onDelete }) {
+import { TodoContext } from '../../contexts/to-do-context'
+
+const ToDoItem = ({ item, index }) => {
+
+  const { editTodo, removeTodo } = useContext(TodoContext)
 
   const [editing, setEditing] = useState(false)
   const [value, setValue] = useState(item.value)
 
-  function switchEditing() {
+  const switchEditing = () => {
     setEditing(!editing)
   }
 
-  function handleSubmit(e) {
+  const handleSubmit = e => {
     e.preventDefault()
     if (value.length === 0) return
-    onEdit(item.id, value)
+    editTodo(item.id, value)
     setEditing(false)
   }
 
-  function deleteToDoItem() {
-    onDelete(item.id)
-  }
-
-  
   return(
     <li className="to-do-item">
       <span className="to-do-item__text-prefix">{index + 1}.</span>
@@ -35,7 +34,7 @@ function ToDoItem({ item, index, onEdit, onDelete }) {
         )
       }
       <button className="to-do-item__button to-do-item__button--edit btn" onClick={switchEditing}>{!editing ? 'Edit' : 'Discard'}</button>
-      <button className="to-do-item__button to-do-item__button--delete btn btn--inverted" onClick={deleteToDoItem}>Delete</button>
+      <button className="to-do-item__button to-do-item__button--delete btn btn--inverted" onClick={() => removeTodo(item.id)}>Delete</button>
     </li>
   )
 }

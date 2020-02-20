@@ -3,13 +3,9 @@ import './to-do-list.scss'
 
 import ToDoItem from '../to-do-item'
 
-function ToDoList({ items, onEditItem, onDeleteItem }){
+const ToDoList = ({ items }) =>{
   
-  function renderItem(item, index) {
-    return(
-      <ToDoItem key={item.id} item={item} index={index} onEdit={onEditItem} onDelete={onDeleteItem} />
-    )
-  }
+  const renderItem = (item, index) => <ToDoItem key={item.id} item={item} index={index} />
 
   return(
     <ul className="to-do-list">
