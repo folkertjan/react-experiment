@@ -1,8 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import './global.scss'
+
+import TodoContextProvider from './contexts/to-do-context'
 
 import Header from './components/header'
 import Home from './pages/home'
@@ -12,16 +14,20 @@ function App(){
   return(
     <Router>
       <Header />
-      <Switch>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-        <Route path="/about">
-          <About />
-        </Route>
-      </Switch>
+      <TodoContextProvider>
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+        </Switch>
+      </TodoContextProvider>
     </Router>
   )
 }
 
-ReactDOM.render(<App />, document.getElementById('app'))
+const root = document.getElementById('app')
+
+ReactDOM.render(<App />, root)

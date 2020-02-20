@@ -7,7 +7,7 @@ import Nav from '../nav'
 function Header() {
   return(
     <header className="header">
-      <div class="container header__container">
+      <div className="container header__container">
         <h1 className="header__title">React experiment</h1>
         <Nav />
       </div>

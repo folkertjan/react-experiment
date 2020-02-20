@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import './about.scss'
 
+import { TodoContext } from '../../contexts/to-do-context'
+
 function About(){
+  const { todos } = useContext(TodoContext)
   return(
     <main className="page page--about">
       <div className="container">
         <h2 className="page__title">About</h2>
-        <p>Some description</p>
+        <p>You have {todos.length} {todos.length === 1 ? 'todo' : 'todos'}.</p>
       </div>
     </main>
   )

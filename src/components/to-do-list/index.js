@@ -3,16 +3,17 @@ import './to-do-list.scss'
 
 import ToDoItem from '../to-do-item'
 
-function ToDoList(props){
+function ToDoList({ items, onEditItem, onDeleteItem }){
+  
   function renderItem(item, index) {
     return(
-      <ToDoItem key={item.id} value={item.value} index={index} onEdit={props.onEditItem} onDelete={props.onDeleteItem} />
+      <ToDoItem key={item.id} item={item} index={index} onEdit={onEditItem} onDelete={onDeleteItem} />
     )
   }
 
   return(
     <ul className="to-do-list">
-      {props.items.map(renderItem)}
+      {items.map(renderItem)}
     </ul>
   )
 }

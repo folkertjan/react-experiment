@@ -1,36 +1,35 @@
-import React, { useState, createRef } from 'react'
+import React, { useState } from 'react'
 import './to-do-item.scss'
 
-function ToDoItem(props) {
+function ToDoItem({ item, index, onEdit, onDelete }) {
 
   const [editing, setEditing] = useState(false)
-
-  const input = createRef()
+  const [value, setValue] = useState(item.value)
 
   function switchEditing() {
     setEditing(!editing)
   }
 
-  function editToDoItem(e) {
+  function handleSubmit(e) {
     e.preventDefault()
-    if (input.current.value.length === 0) return
-    props.onEdit(props.index, input.current.value)
+    if (value.length === 0) return
+    onEdit(item.id, value)
     setEditing(false)
   }
 
   function deleteToDoItem() {
-    props.onDelete(props.index)
+    onDelete(item.id)
   }
 
   
   return(
     <li className="to-do-item">
-      <span className="to-do-item__text-prefix">{props.index + 1}.</span>
+      <span className="to-do-item__text-prefix">{index + 1}.</span>
       {!editing ? (
-          <h3 className="to-do-item__text">{props.value}</h3>
+          <h3 className="to-do-item__text">{value}</h3>
         ) : (
-          <form className="form form--inline to-do-item__form" onSubmit={editToDoItem}>
-            <input className="form__input" type="text" autoFocus defaultValue={props.value} ref={input} />
+          <form className="form form--inline to-do-item__form" onSubmit={handleSubmit}>
+            <input className="form__input" type="text" autoFocus defaultValue={value} onChange={e => setValue(e.target.value)} />
             <input className="form__submit btn" type="submit" value="Save" />
           </form>
         )

@@ -1,59 +1,35 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import './home.scss'
+
+import { TodoContext } from '../../contexts/to-do-context'
 
 import ToDoList from '../../components/to-do-list'
 
 function Home(){
-  const [items, setItems] = useState([
-    {id: generateRandomString(), value: 'Groceries'},
-    {id: generateRandomString(), value: 'Clean my room'},
-    {id: generateRandomString(), value: 'Drinks at 5'}
-  ])
+  const { todos, addTodo, editTodo, removeTodo } = useContext(TodoContext)
 
-  const input = useRef()
+  const [value, setValue] = useState('')
 
-  function generateRandomString() {
-    return Math.random().toString(36).substring(7);
-  }
+  useEffect(() => {
+    console.log('todos: ', todos)
+  }, [todos])
 
-  function genItem(value) {
-    return {
-      id: generateRandomString(),
-      value
-    }
-  }
-
-  function addToDoItem(e) {
+  const handleSubmit = e => {
     e.preventDefault()
-    if (input.current.value.length === 0) return
-    const copy = [...items]
-    copy.push(genItem(input.current.value))
-    setItems(copy)
-    input.current.value = ''
-  }
-
-  function editToDoItem(index, value) {
-    const copy = [...items]
-    copy[index] = genItem(value) 
-    setItems(copy)
-  }
-
-  function deleteToDoItem(index) {
-    const copy = [...items]
-    copy.splice(index, 1)
-    setItems(copy)
+    addTodo(value)
+    setValue('')
   }
 
   return(
     <main className="page page--home">
       <div className="container">
         <h2 className="page__title">To do list</h2>
-        <form onSubmit={addToDoItem} className="form form--inline">
-          <input className="form__input" name="input" type="text" ref={input} />
+        <form onSubmit={handleSubmit} className="form form--inline">
+          <input className="form__input" name="input" type="text" value={value} onChange={e => setValue(e.target.value)} />
           <input className="form__submit btn" type="submit" value="Add todo" />
         </form>
-        <ToDoList items={items} onEditItem={editToDoItem} onDeleteItem={deleteToDoItem} />
+        <ToDoList items={todos} onEditItem={editTodo} onDeleteItem={removeTodo} />
       </div>
     </main>
   )
